@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NYC Shooting Incidents: When and Where?</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #c0392b;
+      --dark:   #1a1a1a;
+      --mid:    #444;
+      --light:  #f7f7f7;
+      --border: #e0e0e0;
+      --max:    780px;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--dark);
+      background: #fff;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--dark);
+      color: #fff;
+      padding: 80px 24px 64px;
+      text-align: center;
+    }
+    .hero .label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 860px;
+      margin: 0 auto 24px;
+    }
+    .hero h1 span { color: var(--red); }
+    .hero .dek {
+      font-size: 19px;
+      color: #ccc;
+      max-width: 640px;
+      margin: 0 auto 32px;
+      font-style: italic;
+    }
+    .hero .byline {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: #888;
+      letter-spacing: 1px;
+    }
+
+    /* ── Body text ── */
+    .content {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    p { margin: 1.1em 0; }
+
+    .section-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-top: 64px;
+      margin-bottom: 6px;
+    }
+
+    h2 {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    /* ── Pull quote ── */
+    blockquote {
+      border-left: 4px solid var(--red);
+      margin: 32px 0;
+      padding: 12px 24px;
+      background: var(--light);
+      font-style: italic;
+      font-size: 20px;
+      color: var(--mid);
+    }
+
+    /* ── Stat row ── */
+    .stat-row {
+      display: flex;
+      gap: 16px;
+      margin: 32px 0;
+      flex-wrap: wrap;
+    }
+    .stat-box {
+      flex: 1;
+      min-width: 130px;
+      background: var(--light);
+      border-top: 3px solid var(--red);
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-box .num {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: var(--red);
+      display: block;
+    }
+    .stat-box .lbl {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      color: var(--mid);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ── Chart containers ── */
+    .chart-wrap {
+      margin: 32px -24px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .chart-wrap iframe {
+      width: 100%;
+      border: none;
+      display: block;
+    }
+    .chart-caption {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: #888;
+      padding: 8px 24px 12px;
+      background: var(--light);
+    }
+
+    /* ── References ── */
+    .references {
+      background: var(--light);
+      border-left: 3px solid var(--border);
+      padding: 20px 24px;
+      margin: 32px 0;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      color: var(--mid);
+    }
+    .references h4 {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .references ol { padding-left: 20px; }
+    .references li { margin-bottom: 8px; line-height: 1.5; }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--dark);
+      color: #888;
+      text-align: center;
+      padding: 40px 24px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      margin-top: 80px;
+    }
+    footer a { color: var(--red); text-decoration: none; }
+
+    sup { font-size: 12px; color: var(--red); }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════════════════ -->
+<header class="hero">
+  <p class="label">Social Data Analysis &amp; Visualization · DTU 2026</p>
+  <h1>NYC Shooting Incidents:<br><span>When and Where Does Gun Violence Happen?</span></h1>
+  <p class="dek">Twenty years of NYPD data reveal a city that spent over a decade getting safer — until 2020 reset the clock overnight.</p>
+  <p class="byline">23,988 incidents &nbsp;·&nbsp; 2006–2025 &nbsp;·&nbsp; New York City</p>
+</header>
+
+<!-- ══ INTRO ══════════════════════════════════════════════════════════════════ -->
+<main>
+<div class="content">
+
+  <div class="section-label">Introduction</div>
+  <h2>A city in numbers</h2>
+
+  <p>Every shooting incident recorded by the NYPD since 2006 is a data point in one of the most detailed public crime datasets in the world. Taken together, these nearly 24,000 incidents tell a story that is more nuanced — and more hopeful — than most headlines suggest.</p>
+
+  <div class="stat-row">
+    <div class="stat-box"><span class="num">23,988</span><span class="lbl">Total incidents</span></div>
+    <div class="stat-box"><span class="num">20</span><span class="lbl">Years (2006–2025)</span></div>
+    <div class="stat-box"><span class="num">−50%</span><span class="lbl">Decline 2006→2019</span></div>
+    <div class="stat-box"><span class="num">+97%</span><span class="lbl">Spike in 2020</span></div>
+  </div>
+
+  <p>The data comes from the <em>NYPD Shooting Incident Data (Historic)</em>, published on NYC Open Data. Each row is one incident, with the date, time, borough, location type, and GPS coordinates. We focus on three questions: how has the total count changed over time, where do incidents concentrate geographically, and when — what time of day and week — are shootings most likely to occur.</p>
+
+</div>
+
+<!-- ══ SECTION 1: THE ARC ══════════════════════════════════════════════════════ -->
+<div class="content">
+  <hr>
+  <div class="section-label">Part One</div>
+  <h2>Thirteen years of progress, undone in twelve months</h2>
+
+  <p>Between 2006 and 2019, shooting incidents in New York City fell by nearly 50 percent — from 1,566 to 777. The decline was not steady or uninterrupted, but the direction was unmistakable. Then, in 2020, the number climbed back to 1,532 in a single year: a 97 percent jump that erased most of a decade of progress.</p>
+</div>
+
+<div class="chart-wrap" style="margin: 32px 0;">
+  <iframe src="viz_annual.html" height="410"></iframe>
+  <p class="chart-caption">Figure 1. Annual shooting incidents in NYC, 2006–2025. Hover for exact values.</p>
+</div>
+
+<div class="content">
+  <p>Two events bookend the decline. In 2013, a federal judge ruled that the NYPD's Stop-and-Frisk programme — which had peaked at 685,000 stops in 2011 — constituted unconstitutional racial profiling.<sup>1</sup> The mandatory wind-down coincided with continued crime reduction, undermining the claim that mass stops were solely responsible for the city's safety gains.</p>
+
+  <p>The 2020 reversal is harder to attribute to a single cause. The COVID-19 pandemic emptied streets, closed courts, reduced policing activity, and disrupted social services simultaneously. Research on prior pandemics and economic shocks suggests that rapid institutional disruption — regardless of its source — tends to increase violent crime in already-stressed communities.<sup>2</sup> By 2023, incidents had fallen back toward pre-pandemic levels, though they remained above the 2019 trough.</p>
+
+  <blockquote>"The data does not say crime fell because of one policy or rose because of one event. It says that something structural changed in 2020 — and that the underlying geography and timing of violence remained almost perfectly stable throughout."</blockquote>
+</div>
+
+<!-- ══ SECTION 2: GEOGRAPHY ════════════════════════════════════════════════════ -->
+<div class="content">
+  <hr>
+  <div class="section-label">Part Two</div>
+  <h2>Two boroughs carry the weight of the city</h2>
+
+  <p>The map below shows the density of shooting incidents across all five boroughs, drawn from every recorded incident with valid GPS coordinates. The pattern is stark: the heat concentrates in two areas — central and eastern Brooklyn, and the southern Bronx — while large parts of Manhattan, Queens, and virtually all of Staten Island remain pale.</p>
+</div>
+
+<div class="chart-wrap" style="margin: 32px 0;">
+  <iframe src="viz_map.html" height="520"></iframe>
+  <p class="chart-caption">Figure 2. Heatmap of all shooting incidents 2006–2025. Brighter areas indicate higher incident density.</p>
+</div>
+
+<div class="content">
+  <p>Brooklyn alone accounts for 40 percent of all incidents (9,677); the Bronx contributes another 29 percent (6,925). Together, two boroughs that contain roughly 45 percent of the city's population produce nearly 70 percent of its shootings. Staten Island, with 671 incidents across 20 years, accounts for less than 3 percent.</p>
+
+  <p>This concentration is not random. It maps closely onto well-documented patterns of concentrated disadvantage. Neighborhoods such as Brownsville and East New York in Brooklyn, and the South Bronx, rank among the city's lowest in median household income and highest in public housing density.<sup>3</sup> Decades of research in urban sociology have established that the spatial clustering of poverty, residential instability, and institutional disinvestment is one of the strongest predictors of neighbourhood-level violent crime — independent of individual characteristics.<sup>4</sup></p>
+
+  <p>Race compounds this picture. Black and Latino residents are both disproportionately represented as victims of shootings and disproportionately concentrated in the high-incident neighbourhoods, a pattern that reflects the long legacy of racially discriminatory housing policy, including redlining and the deliberate siting of public housing in already-segregated areas.<sup>5</sup></p>
+</div>
+
+<!-- ══ SECTION 3: TIME ════════════════════════════════════════════════════════ -->
+<div class="content">
+  <hr>
+  <div class="section-label">Part Three</div>
+  <h2>NYC after midnight</h2>
+
+  <p>If the geography of gun violence is a story about inequality, the timing is a story about nightlife. Nearly half of all shooting incidents — 48 percent — occur between 10 pm and 5 am. The daytime hours between 8 am and 6 pm account for less than 28 percent.</p>
+
+  <p>The heatmap below shows this pattern in full detail: hour of day on the vertical axis, day of week on the horizontal. Darker red means more incidents. Hover over any cell to see the exact count.</p>
+</div>
+
+<div class="chart-wrap" style="margin: 32px 0;">
+  <iframe src="viz_heatmap.html" height="560"></iframe>
+  <p class="chart-caption">Figure 3. Total shooting incidents by hour of day and day of week, 2006–2025. Hover for exact values.</p>
+</div>
+
+<div class="content">
+  <p>Two patterns stand out. First, the late-night band from 10 pm to 2 am is uniformly dark across every day of the week — this is not a weekend phenomenon but a nightly one. Second, the weekend intensification is real but concentrated: Saturday night into Sunday morning, and Sunday night into Monday morning, are the hottest cells in the entire matrix.</p>
+
+  <p>The calmest period of the week is Tuesday and Wednesday mornings between 8 am and noon — the statistical opposite of a Saturday midnight. This stability across 20 years suggests the time pattern of gun violence is deeply embedded in social routines and does not respond to the same forces that move the annual total up or down.</p>
+
+</div>
+
+<!-- ══ CONCLUSION ══════════════════════════════════════════════════════════════ -->
+<div class="content">
+  <hr>
+  <div class="section-label">Conclusion</div>
+  <h2>What the data says — and what it doesn't</h2>
+
+  <p>Three findings emerge consistently from 20 years of NYPD shooting data. Gun violence in New York City fell dramatically between 2006 and 2019 before reversing sharply in 2020. It is geographically concentrated in two boroughs, in neighbourhoods with high poverty and public housing density, in ways that reflect structural inequality rather than individual behaviour. And it follows a stable temporal pattern centred on late-night hours and weekend evenings that has persisted through every policy change and social shock in the dataset.</p>
+
+  <p>What the data cannot tell us is why any individual incident occurred, or what specific interventions caused the long decline. Those questions require richer data and different methods. What it can tell us is that the problem is not evenly distributed — and that any serious response to gun violence in New York City has to reckon with the geography of disadvantage that the map makes visible.</p>
+
+  <p style="margin-top:32px">
+    <a href="https://nbviewer.org/github/yilan-h/socialdata2026/blob/main/NYC_Shootings_Explainer.ipynb"
+       target="_blank"
+       style="font-family:sans-serif;font-size:15px;color:#c0392b;text-decoration:none;
+              border:2px solid #c0392b;padding:10px 20px;display:inline-block">
+      → Read the full analysis in the Explainer Notebook
+    </a>
+  </p>
+</div>
+</main>
+
+<!-- ══ REFERENCES ══════════════════════════════════════════════════════════════ -->
+<div class="content">
+  <hr>
+  <div class="references">
+    <h4>References</h4>
+    <ol>
+      <li>Fagan, J., &amp; Davies, G. (2000). Street stops and broken windows: Terry, race, and disorder in New York City. <em>Fordham Urban Law Journal</em>, 28(2), 457–504.</li>
+      <li>Sharkey, P. (2018). <em>Uneasy Peace: The Great Crime Decline, the Renewal of City Life, and the Next War on Violence</em>. W.W. Norton &amp; Company.</li>
+      <li>New York City Department of City Planning. (2023). <em>Community District Profiles</em>. NYC DCP. <a href="https://communityprofiles.planning.nyc.gov/" target="_blank" style="color:var(--red)">communityprofiles.planning.nyc.gov</a></li>
+      <li>Sampson, R. J., Raudenbush, S. W., &amp; Earls, F. (1997). Neighborhoods and violent crime: A multilevel study of collective efficacy. <em>Science</em>, 277(5328), 918–924. <a href="https://doi.org/10.1126/science.277.5328.918" target="_blank" style="color:var(--red)">doi.org/10.1126/science.277.5328.918</a></li>
+      <li>Rothstein, R. (2017). <em>The Color of Law: A Forgotten History of How Our Government Segregated America</em>. Liveright Publishing.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════════════════════ -->
+<footer>
+  <p>Data: <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8">NYPD Shooting Incident Data (Historic)</a> — NYC Open Data, downloaded April 2026.</p>
+  <p style="margin-top:8px">Social Data Analysis and Visualization · DTU 2026</p>
+</footer>
+
+</body>
+</html>
